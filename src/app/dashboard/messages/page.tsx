@@ -34,7 +34,7 @@ interface Conversation {
   unreadCount: number;
 }
 
-type SupabaseClient = ReturnType<typeof createClient>;
+type SupabaseClient = NonNullable<ReturnType<typeof createClient>>;
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 function formatTime(iso: string): string {
@@ -74,7 +74,8 @@ export default function MessagesPage() {
   const [mobileView, setMobileView] = useState<"list" | "chat">("list");
 
   const bottomRef = useRef<HTMLDivElement>(null);
-  const channelRef = useRef<ReturnType<SupabaseClient["channel"]> | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const channelRef = useRef<any>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const activeConvo = conversations.find((c) => c.matchId === activeMatchId) ?? null;
