@@ -134,7 +134,7 @@ export default function ListingCard({ listing }: { listing: Listing }) {
 
         {/* CTA */}
         <Link
-          href={`/search`}
+          href={`/properties/${listing.id}`}
           className="mt-4 flex items-center justify-center gap-1.5 w-full bg-primary/5 border border-primary/20 rounded-xl py-2.5 text-sm font-semibold text-primary hover:bg-primary hover:text-white hover:border-primary transition-all"
         >
           View Details

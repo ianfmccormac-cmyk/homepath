@@ -1,6 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
+import { useState } from "react";
 import Navbar from "@/components/navbar";
 import Link from "next/link";
 import { JargonTip } from "@/components/jargon-tip";
@@ -17,6 +18,7 @@ import {
   Home,
   ThumbsUp,
   Zap,
+  X,
 } from "lucide-react";
 
 // ─── Mock agent data ──────────────────────────────────────────────────────
@@ -128,6 +130,7 @@ function StarRow({ rating }: { rating: number }) {
 export default function AgentProfilePage() {
   const { id } = useParams<{ id: string }>();
   const agent = AGENTS[id] ?? DEFAULT_AGENT;
+  const [showVideoModal, setShowVideoModal] = useState(false);
 
   return (
     <div className="min-h-screen bg-background">
@@ -136,12 +139,49 @@ export default function AgentProfilePage() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Back */}
         <Link
-          href="/"
+          href="/#agents"
           className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to agents
         </Link>
+
+        {/* Video modal */}
+        {showVideoModal && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4"
+            onClick={() => setShowVideoModal(false)}
+          >
+            <div
+              className="bg-card rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setShowVideoModal(false)}
+                className="absolute top-4 right-4 text-muted-foreground hover:text-foreground"
+              >
+                <X className="w-5 h-5" />
+              </button>
+              <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Play className="w-6 h-6 text-primary ml-1" />
+              </div>
+              <h3 className="font-bold text-foreground text-lg mb-2">
+                Video coming soon
+              </h3>
+              <p className="text-sm text-muted-foreground mb-5">
+                {agent.name.split(" ")[0]}&apos;s intro video will be live shortly. In the meantime, send a message to get started.
+              </p>
+              <Link
+                href="/dashboard/messages"
+                onClick={() => setShowVideoModal(false)}
+                className="inline-flex items-center gap-2 bg-gold hover:bg-gold-hover text-white font-bold text-sm px-6 py-3 rounded-xl transition-colors"
+              >
+                <MessageSquare className="w-4 h-4" />
+                Message {agent.name.split(" ")[0]}
+              </Link>
+            </div>
+          </div>
+        )}
 
         {/* ── Profile header ── */}
         <div className="bg-card rounded-2xl border border-border p-6 sm:p-8 mb-6">
@@ -233,7 +273,10 @@ export default function AgentProfilePage() {
                     backgroundSize: "24px 24px",
                   }}
                 />
-                <button className="relative flex flex-col items-center gap-3 group">
+                <button
+                  onClick={() => setShowVideoModal(true)}
+                  className="relative flex flex-col items-center gap-3 group"
+                >
                   <div className="w-16 h-16 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors border-2 border-white/30">
                     <Play className="w-7 h-7 text-white fill-white ml-1" />
                   </div>

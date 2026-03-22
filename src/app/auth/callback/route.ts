@@ -16,6 +16,11 @@ export async function GET(request: Request) {
       } = await supabase.auth.getUser();
 
       if (user) {
+        // If a specific destination was requested (e.g. password reset page), honour it.
+        if (next !== "/") {
+          return NextResponse.redirect(`${origin}${next}`);
+        }
+
         const { data: profile } = await supabase
           .from("profiles")
           .select("role")
