@@ -25,7 +25,7 @@ const NAV_ITEMS = [
   { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { label: "My Matches", href: "/dashboard/matches", icon: Sparkles },
   { label: "Search Homes", href: "/search", icon: Search },
-  { label: "Saved", href: "/search", icon: Heart },
+  { label: "Saved", href: "/dashboard/saved", icon: Heart },
   { label: "Tours", href: "/dashboard", icon: CalendarDays },
   { label: "Offers", href: "/offers/new", icon: FileSignature },
   { label: "Documents", href: "/dashboard", icon: FileText },
@@ -67,7 +67,7 @@ function SidebarContent({ onClose }: { onClose?: () => void }) {
           className="flex items-center gap-2"
           onClick={onClose}
         >
-          <div className="w-8 h-8 bg-gold rounded-lg flex items-center justify-center">
+          <div className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center">
             <MapPin className="w-4 h-4 text-white" strokeWidth={2.5} />
           </div>
           <span className="text-white font-semibold text-lg">HomePath</span>
@@ -176,7 +176,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             <Menu className="w-5 h-5" />
           </button>
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 bg-gold rounded-lg flex items-center justify-center">
+            <div className="w-7 h-7 bg-emerald-600 rounded-lg flex items-center justify-center">
               <MapPin className="w-3.5 h-3.5 text-white" strokeWidth={2.5} />
             </div>
             <span className="text-white font-semibold">HomePath</span>

@@ -28,7 +28,7 @@ function SignupForm() {
   const defaultRole: Role = searchParams.get("role") === "agent" ? "agent" : null;
 
   const [role, setRole] = useState<Role>(defaultRole);
-  const [step, setStep] = useState<"role" | "details">(defaultRole ? "details" : "role");
+  const [step, setStep] = useState<"role" | "details" | "confirm">(defaultRole ? "details" : "role");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -71,9 +71,9 @@ function SignupForm() {
       return;
     }
 
-    // Redirect based on role
-    router.push(role === "agent" ? "/realtor/dashboard" : "/onboarding");
-    router.refresh();
+    // Show email confirmation screen instead of immediately redirecting.
+    // Supabase sends a confirmation email; the user must click it before logging in.
+    setStep("confirm");
     setLoading(false);
   };
 
@@ -215,9 +215,9 @@ function SignupForm() {
                 </div>
                 <span className="text-xs text-muted-foreground leading-relaxed">
                   I agree to the{" "}
-                  <Link href="#" className="text-primary hover:underline">Terms of Service</Link>
+                  <Link href="/terms" target="_blank" className="text-primary hover:underline">Terms of Service</Link>
                   {" "}and{" "}
-                  <Link href="#" className="text-primary hover:underline">Privacy Policy</Link>
+                  <Link href="/privacy" target="_blank" className="text-primary hover:underline">Privacy Policy</Link>
                 </span>
               </label>
 
@@ -241,6 +241,43 @@ function SignupForm() {
           </p>
         </div>
       )}
+
+      {step === "confirm" && (
+        <div className="bg-card border border-border rounded-2xl p-8 shadow-sm text-center">
+          <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-5">
+            <svg className="w-8 h-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25H4.5a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5H4.5a2.25 2.25 0 00-2.25 2.25m19.5 0l-9.75 6.75L2.25 6.75" />
+            </svg>
+          </div>
+          <h1 className="text-xl font-bold text-foreground mb-2">
+            Check your inbox
+          </h1>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-2">
+            We sent a confirmation link to{" "}
+            <span className="font-semibold text-foreground">{email}</span>.
+          </p>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+            Click the link in that email to activate your account, then come back and sign in.
+          </p>
+          <div className="bg-amber-50 border border-amber-200/60 rounded-xl px-4 py-3 text-left mb-6">
+            <p className="text-xs text-amber-800 leading-relaxed">
+              <span className="font-semibold">No email?</span> Check your spam folder or{" "}
+              <button
+                onClick={() => setStep("details")}
+                className="underline font-semibold hover:text-amber-900"
+              >
+                try a different email address
+              </button>.
+            </p>
+          </div>
+          <Link
+            href="/login"
+            className="inline-flex items-center justify-center w-full bg-primary text-white font-semibold text-sm py-3.5 rounded-xl hover:bg-primary/90 transition-all"
+          >
+            Go to sign in
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
@@ -250,7 +287,7 @@ export default function SignupPage() {
     <div className="min-h-screen bg-background flex flex-col">
       <header className="bg-primary h-16 flex items-center px-6 shrink-0">
         <Link href="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-gold rounded-lg flex items-center justify-center">
+          <div className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center">
             <MapPin className="w-4 h-4 text-white" strokeWidth={2.5} />
           </div>
           <span className="text-white font-semibold text-lg">HomePath</span>

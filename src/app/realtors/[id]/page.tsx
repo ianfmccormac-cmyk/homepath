@@ -172,7 +172,7 @@ export default function AgentProfilePage() {
                 {agent.name.split(" ")[0]}&apos;s intro video will be live shortly. In the meantime, send a message to get started.
               </p>
               <Link
-                href="/dashboard/messages"
+                href={`/dashboard/messages?name=${encodeURIComponent(agent.name)}`}
                 onClick={() => setShowVideoModal(false)}
                 className="inline-flex items-center gap-2 bg-gold hover:bg-gold-hover text-white font-bold text-sm px-6 py-3 rounded-xl transition-colors"
               >
@@ -232,7 +232,7 @@ export default function AgentProfilePage() {
                 {/* Single clear CTA — no decision paralysis */}
                 <div className="sm:shrink-0">
                   <Link
-                    href="/dashboard/messages"
+                    href={`/dashboard/messages?name=${encodeURIComponent(agent.name)}`}
                     className="inline-flex items-center justify-center gap-2 bg-gold hover:bg-gold-hover text-white font-bold text-sm px-6 py-3 rounded-xl transition-colors shadow-sm"
                   >
                     <MessageSquare className="w-4 h-4" />
@@ -446,7 +446,7 @@ export default function AgentProfilePage() {
 
             {/* CTA repeat */}
             <Link
-              href="/dashboard/messages"
+              href={`/dashboard/messages?name=${encodeURIComponent(agent.name)}`}
               className="flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-semibold py-3.5 rounded-xl transition-colors text-sm"
             >
               <MessageSquare className="w-4 h-4" />

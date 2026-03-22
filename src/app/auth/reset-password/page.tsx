@@ -55,7 +55,7 @@ export default function ResetPasswordPage() {
       {/* Top bar */}
       <header className="bg-primary h-16 flex items-center px-6 shrink-0">
         <Link href="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-gold rounded-lg flex items-center justify-center">
+          <div className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center">
             <MapPin className="w-4 h-4 text-white" strokeWidth={2.5} />
           </div>
           <span className="text-white font-semibold text-lg">HomePath</span>

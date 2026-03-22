@@ -25,6 +25,7 @@ interface DbMessage {
 
 interface Conversation {
   matchId: string;
+  realtorId: string;
   matchScore: number | null;
   otherPartyName: string | null;
   otherPartyAvatar: string | null;
@@ -80,6 +81,25 @@ export default function MessagesPage() {
 
   const activeConvo = conversations.find((c) => c.matchId === activeMatchId) ?? null;
 
+  // Auto-open a specific conversation when ?realtorId= or ?name= is in the URL
+  useEffect(() => {
+    if (typeof window === "undefined" || conversations.length === 0) return;
+    const params = new URLSearchParams(window.location.search);
+    const targetId = params.get("realtorId");
+    const targetName = params.get("name");
+    if (!targetId && !targetName) return;
+
+    const match = conversations.find((c) =>
+      targetId
+        ? c.realtorId === targetId
+        : c.otherPartyName?.toLowerCase().includes((targetName ?? "").toLowerCase())
+    );
+    if (match) {
+      setActiveMatchId(match.matchId);
+      setMobileView("chat");
+    }
+  }, [conversations]);
+
   // ── Load conversations ───────────────────────────────────────────────────
   const loadConversations = useCallback(
     async (uid: string, sb: SupabaseClient) => {
@@ -131,6 +151,7 @@ export default function MessagesPage() {
           const r = m.realtors as RealtorRow | null;
           return {
             matchId: m.id,
+            realtorId: m.realtor_id,
             matchScore: m.match_score,
             otherPartyName: r?.profiles?.full_name ?? null,
             otherPartyAvatar: r?.profiles?.avatar_url ?? null,

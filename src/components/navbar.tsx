@@ -18,7 +18,7 @@ export default function Navbar() {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5 shrink-0">
-          <div className="w-8 h-8 bg-gold rounded-[10px] flex items-center justify-center shadow-[0_1px_3px_rgba(0,0,0,0.25),inset_0_1px_0_rgba(255,255,255,0.15)]">
+          <div className="w-8 h-8 bg-emerald-600 rounded-[10px] flex items-center justify-center shadow-[0_1px_3px_rgba(0,0,0,0.25),inset_0_1px_0_rgba(255,255,255,0.15)]">
             <MapPin className="w-4 h-4 text-white" strokeWidth={2.5} />
           </div>
           <span className="text-white font-bold text-[17px] tracking-tight">

@@ -36,7 +36,7 @@ function SidebarContent({ onClose }: { onClose?: () => void }) {
       {/* Logo */}
       <div className="h-16 flex items-center justify-between px-5 border-b border-white/10 shrink-0">
         <Link href="/" className="flex items-center gap-2" onClick={onClose}>
-          <div className="w-8 h-8 bg-gold rounded-lg flex items-center justify-center">
+          <div className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center">
             <MapPin className="w-4 h-4 text-white" strokeWidth={2.5} />
           </div>
           <div>
@@ -142,7 +142,7 @@ export default function RealtorShell({
             <Menu className="w-5 h-5" />
           </button>
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 bg-gold rounded-lg flex items-center justify-center">
+            <div className="w-7 h-7 bg-emerald-600 rounded-lg flex items-center justify-center">
               <MapPin className="w-3.5 h-3.5 text-white" strokeWidth={2.5} />
             </div>
             <span className="text-white font-semibold text-sm">

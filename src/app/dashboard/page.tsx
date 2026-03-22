@@ -407,8 +407,8 @@ export default function DashboardPage() {
       <div>
         <div className="flex items-center justify-between mb-3">
           <SectionLabel>Saved homes</SectionLabel>
-          <Link href="/search" className="text-xs text-primary font-medium hover:underline flex items-center gap-1">
-            Browse more <ArrowRight className="w-3 h-3" />
+          <Link href="/dashboard/saved" className="text-xs text-primary font-medium hover:underline flex items-center gap-1">
+            See all <ArrowRight className="w-3 h-3" />
           </Link>
         </div>
 
@@ -416,7 +416,7 @@ export default function DashboardPage() {
           {SAVED_HOMES.map((home) => (
             <Link
               key={home.id}
-              href={`/search`}
+              href={`/properties/${home.id}`}
               className="group rounded-xl ring-1 ring-black/[0.07] overflow-hidden hover:shadow-[0_8px_24px_rgba(0,0,0,0.1)] transition-all hover:-translate-y-0.5 duration-200"
             >
               <div className="relative h-32 sm:h-28 overflow-hidden bg-muted">

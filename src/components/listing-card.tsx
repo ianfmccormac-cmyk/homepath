@@ -25,8 +25,24 @@ function formatPrice(n: number) {
   return `$${(n / 1000).toFixed(0)}K`;
 }
 
+const HP_SAVED_KEY = "hp_saved_listings";
+
+function getSavedIds(): number[] {
+  if (typeof window === "undefined") return [];
+  try { return JSON.parse(localStorage.getItem(HP_SAVED_KEY) ?? "[]"); }
+  catch { return []; }
+}
+
+function toggleSavedId(id: number, next: boolean): void {
+  const ids = getSavedIds();
+  const updated = next ? [...new Set([...ids, id])] : ids.filter((i) => i !== id);
+  localStorage.setItem(HP_SAVED_KEY, JSON.stringify(updated));
+  // Notify other components (dashboard saved tab, etc.)
+  window.dispatchEvent(new Event("hp_saved_change"));
+}
+
 export default function ListingCard({ listing }: { listing: Listing }) {
-  const [saved, setSaved] = useState(false);
+  const [saved, setSaved] = useState(() => getSavedIds().includes(listing.id));
 
   const tagColorMap: Record<string, string> = {
     New: "bg-gold text-white",
@@ -52,7 +68,11 @@ export default function ListingCard({ listing }: { listing: Listing }) {
 
         {/* Save button */}
         <button
-          onClick={() => setSaved((s) => !s)}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setSaved((s) => { toggleSavedId(listing.id, !s); return !s; });
+          }}
           className={`absolute top-3 right-3 w-9 h-9 rounded-full flex items-center justify-center shadow-md transition-all z-10 ${
             saved
               ? "bg-rose-500 text-white scale-110"
