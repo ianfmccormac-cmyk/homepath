@@ -97,7 +97,7 @@ function ToggleCard({
             {description}
           </p>
           <p className="text-xs text-sky-700 mt-2 bg-sky-50 px-3 py-2 rounded-lg border border-sky-100">
-            💡 {callout}
+            {callout}
           </p>
         </div>
         <div
@@ -162,7 +162,7 @@ export default function MakeOfferPage() {
           <PartyPopper className="w-10 h-10 text-gold-dark" />
         </div>
         <h1 className="text-3xl font-bold text-foreground mb-3">
-          Offer submitted! 🎉
+          Offer submitted!
         </h1>
         <p className="text-muted-foreground max-w-sm mb-8 leading-relaxed">
           Your offer on{" "}
@@ -455,7 +455,7 @@ export default function MakeOfferPage() {
                     </JargonTip>
                   </label>
                   <p className="text-xs text-muted-foreground mb-2">
-                    = the day you get your keys 🗝️ · Typically 30–45 days from today
+                    = the day you sign the papers and get your keys · Typically 30–45 days from today
                   </p>
                   <input
                     type="date"

@@ -157,6 +157,7 @@ export default function SearchPage() {
                   if (f === priceRange) setPriceRange("Any");
                   else if (f.includes("beds")) setBeds("Any");
                   else setPropType("All Types");
+                  setShowFilters(false);
                 }}>
                   <X className="w-3 h-3" />
                 </button>
@@ -174,6 +175,62 @@ export default function SearchPage() {
             </div>
           </div>
         </div>
+
+        {/* Mobile filter panel */}
+        {showFilters && (
+          <div className="lg:hidden bg-card border-b border-border px-4 py-4">
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Price Range</p>
+                <select
+                  value={priceRange}
+                  onChange={(e) => setPriceRange(e.target.value)}
+                  className="w-full appearance-none bg-secondary border border-border text-sm font-medium text-foreground rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                >
+                  {PRICE_RANGES.map((r) => <option key={r.label} value={r.label}>{r.label}</option>)}
+                </select>
+              </div>
+              <div>
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Bedrooms</p>
+                <select
+                  value={beds}
+                  onChange={(e) => setBeds(e.target.value)}
+                  className="w-full appearance-none bg-secondary border border-border text-sm font-medium text-foreground rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                >
+                  {BED_OPTIONS.map((o) => <option key={o} value={o}>{o}</option>)}
+                </select>
+              </div>
+              <div>
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Property Type</p>
+                <select
+                  value={propType}
+                  onChange={(e) => setPropType(e.target.value)}
+                  className="w-full appearance-none bg-secondary border border-border text-sm font-medium text-foreground rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                >
+                  {TYPE_OPTIONS.map((o) => <option key={o} value={o}>{o}</option>)}
+                </select>
+              </div>
+              <div>
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Sort By</p>
+                <select
+                  value={sort}
+                  onChange={(e) => setSort(e.target.value)}
+                  className="w-full appearance-none bg-secondary border border-border text-sm font-medium text-foreground rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                >
+                  {SORT_OPTIONS.map((o) => <option key={o} value={o}>{o}</option>)}
+                </select>
+              </div>
+            </div>
+            {activeFilters.length > 0 && (
+              <button
+                onClick={() => { setPriceRange("Any"); setBeds("Any"); setPropType("All Types"); setShowFilters(false); }}
+                className="mt-3 text-sm font-semibold text-primary hover:underline"
+              >
+                Clear all filters
+              </button>
+            )}
+          </div>
+        )}
       </div>
 
       {/* ── Results ── */}
@@ -190,7 +247,7 @@ export default function SearchPage() {
             onClick={() => setShowFilters(!showFilters)}
           >
             <SlidersHorizontal className="w-4 h-4" />
-            Filters
+            Filters{activeFilters.length > 0 ? ` (${activeFilters.length})` : ""}
           </button>
         </div>
 

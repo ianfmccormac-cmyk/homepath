@@ -37,10 +37,10 @@ const EXPERIENCE_OPTIONS = [
 ];
 
 const COM_OPTIONS = [
-  { label: "💬 Text / Chat", hint: "Quick back-and-forth, on your time" },
-  { label: "📞 Phone calls", hint: "I like talking things through" },
-  { label: "📧 Email", hint: "I want everything in writing" },
-  { label: "🎥 Video calls", hint: "Face-to-face feels right to me" },
+  { label: "Text / Chat", hint: "Quick back-and-forth, on your time" },
+  { label: "Phone calls", hint: "I like talking things through" },
+  { label: "Email", hint: "I want everything in writing" },
+  { label: "Video calls", hint: "Face-to-face feels right to me" },
 ];
 
 const POPULAR_CITIES = ["Austin, TX", "Denver, CO", "Miami, FL", "Nashville, TN"];
@@ -202,7 +202,7 @@ export default function OnboardingPage() {
               </p>
               {/* Inline tip */}
               <p className="text-xs text-muted-foreground/70 bg-secondary border border-border rounded-lg px-3 py-2 mb-6 inline-block">
-                💡 This helps us show you agents licensed in your area.
+                This helps us show you agents licensed in your area.
               </p>
 
               {/* City pills — tap to auto-select + advance */}
@@ -269,7 +269,7 @@ export default function OnboardingPage() {
                 No judgment — there&apos;s no wrong answer.
               </p>
               <p className="text-xs text-muted-foreground/70 bg-secondary border border-border rounded-lg px-3 py-2 mb-6 inline-block">
-                💡 This is the{" "}
+                This is the{" "}
                 <JargonTip
                   term="total home price"
                   definition="The full purchase price of the home — not your down payment. Most first-time buyers pay 3–20% of this upfront (e.g., $15K–$100K on a $500K home) and borrow the rest via a mortgage."
@@ -319,7 +319,7 @@ export default function OnboardingPage() {
                 Tap your answer — no overthinking needed.
               </p>
               <p className="text-xs text-muted-foreground/70 bg-secondary border border-border rounded-lg px-3 py-2 mb-6 inline-block">
-                💡 This adjusts the pace of your journey plan. You can always update it later.
+                This adjusts the pace of your journey plan. You can always update it later.
               </p>
               <div className="flex flex-col gap-3">
                 {TIMELINE_OPTIONS.map(({ label, hint }) => (
@@ -365,7 +365,7 @@ export default function OnboardingPage() {
                 Be honest — this shapes how your agent guides you.
               </p>
               <p className="text-xs text-muted-foreground/70 bg-secondary border border-border rounded-lg px-3 py-2 mb-6 inline-block">
-                💡 First-time buyers get more hand-holding. Experienced buyers get a faster track.
+                First-time buyers get more hand-holding. Experienced buyers get a faster track.
               </p>
               <div className="flex flex-col gap-3">
                 {EXPERIENCE_OPTIONS.map(({ label, hint }) => (
@@ -411,7 +411,7 @@ export default function OnboardingPage() {
                 We&apos;ll match you with an agent who works the same way.
               </p>
               <p className="text-xs text-muted-foreground/70 bg-secondary border border-border rounded-lg px-3 py-2 mb-6 inline-block">
-                💡 Your agent will use your preferred channel — no surprise phone calls.
+                Your agent will use your preferred channel — no surprise phone calls.
               </p>
               <div className="grid grid-cols-2 gap-3">
                 {COM_OPTIONS.map(({ label, hint }) => (

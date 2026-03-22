@@ -77,7 +77,7 @@ export default function HowItWorks() {
               {/* First-timer reassurance note */}
               {note && (
                 <p className="text-[13px] text-gold-dark bg-gold-light border border-gold-subtle rounded-xl px-3.5 py-3 leading-relaxed">
-                  💡 {note}
+                  {note}
                 </p>
               )}
             </div>
