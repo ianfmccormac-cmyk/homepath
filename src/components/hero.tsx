@@ -1,3 +1,4 @@
+import React from "react";
 import Link from "next/link";
 import { ArrowRight, Check, Calendar, Star } from "lucide-react";
 
@@ -111,9 +112,12 @@ export default function Hero() {
                   </div>
                 </div>
 
-                {/* Progress bar */}
-                <div className="w-full bg-white/[0.05] rounded-full h-1">
-                  <div className="bg-gold h-1 rounded-full" style={{ width: "40%" }} />
+                {/* Progress bar — animates in on load */}
+                <div className="w-full bg-white/[0.05] rounded-full h-1 overflow-hidden">
+                  <div
+                    className="bg-gold h-1 rounded-full animate-progress"
+                    style={{ "--progress-width": "40%" } as React.CSSProperties}
+                  />
                 </div>
 
                 {/* Steps */}

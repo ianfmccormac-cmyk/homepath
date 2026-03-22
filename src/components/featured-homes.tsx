@@ -7,11 +7,8 @@ const FEATURED = [
     price: "$3,200,000",
     address: "1 Pacific Heights Blvd",
     city: "San Francisco, CA",
-    beds: 5,
-    baths: 4,
-    sqft: "4,200",
-    tag: "Just Listed",
-    tagColor: "bg-gold",
+    beds: 5, baths: 4, sqft: "4,200",
+    tag: "Just Listed", tagColor: "bg-gold",
     size: "large",
   },
   {
@@ -19,11 +16,8 @@ const FEATURED = [
     price: "$1,875,000",
     address: "88 Summit Ridge Drive",
     city: "Aspen, CO",
-    beds: 4,
-    baths: 3,
-    sqft: "3,100",
-    tag: "Mountain Views",
-    tagColor: "bg-sky-500",
+    beds: 4, baths: 3, sqft: "3,100",
+    tag: "Mountain Views", tagColor: "bg-sky-500",
     size: "small",
   },
   {
@@ -31,42 +25,34 @@ const FEATURED = [
     price: "$4,500,000",
     address: "22 Beachfront Way",
     city: "Miami Beach, FL",
-    beds: 6,
-    baths: 5,
-    sqft: "5,800",
-    tag: "Waterfront",
-    tagColor: "bg-amber-500",
+    beds: 6, baths: 5, sqft: "5,800",
+    tag: "Waterfront", tagColor: "bg-amber-500",
     size: "small",
   },
 ];
 
-function PropertyCard({
-  home,
-  tall = false,
-}: {
-  home: (typeof FEATURED)[number];
-  tall?: boolean;
-}) {
+function PropertyCard({ home, tall = false }: { home: (typeof FEATURED)[number]; tall?: boolean }) {
   return (
-    <div className={`relative overflow-hidden rounded-2xl group cursor-pointer ring-1 ring-white/[0.06] ${tall ? "row-span-2" : ""}`}>
+    <Link
+      href="/search"
+      className={`relative overflow-hidden rounded-2xl group cursor-pointer ring-1 ring-white/[0.06] block hover:ring-white/[0.14] transition-all duration-300 ${tall ? "row-span-2 h-full" : ""}`}
+    >
       <img
         src={home.image}
         alt={home.address}
-        className={`w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:scale-[1.04] ${
+        className={`w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:scale-[1.05] ${
           tall ? "h-full min-h-[500px]" : "h-64"
         }`}
       />
-      {/* Layered overlay for depth */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-black/20" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/15 to-transparent" />
 
       {/* Tag */}
       <span className={`absolute top-4 left-4 ${home.tagColor} text-white text-[11px] font-bold px-3 py-1.5 rounded-full tracking-wide shadow-lg`}>
         {home.tag}
       </span>
 
-      {/* View details button on hover */}
-      <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0">
+      {/* Arrow button on hover */}
+      <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-250 translate-y-1 group-hover:translate-y-0">
         <div className="bg-white/15 backdrop-blur-md border border-white/20 rounded-full p-2">
           <ArrowUpRight className="w-3.5 h-3.5 text-white" />
         </div>
@@ -77,58 +63,51 @@ function PropertyCard({
         <p className="text-white font-bold text-[26px] tracking-tight leading-none">{home.price}</p>
         <p className="text-white/85 text-[13px] font-medium mt-1.5">{home.address}</p>
         <div className="flex items-center gap-1 text-white/50 text-xs mt-0.5">
-          <MapPin className="w-3 h-3" />
-          {home.city}
+          <MapPin className="w-3 h-3" />{home.city}
         </div>
-        <div className="flex items-center gap-4 mt-3.5 pt-3.5 border-t border-white/[0.12] text-white/65 text-[13px]">
-          <span className="flex items-center gap-1.5">
-            <Bed className="w-3.5 h-3.5" />{home.beds} bd
-          </span>
-          <span className="flex items-center gap-1.5">
-            <Bath className="w-3.5 h-3.5" />{home.baths} ba
-          </span>
-          <span className="flex items-center gap-1.5">
-            <Square className="w-3.5 h-3.5" />{home.sqft} sqft
-          </span>
+        <div className="flex items-center gap-4 mt-3.5 pt-3.5 border-t border-white/[0.1] text-white/60 text-[13px]">
+          <span className="flex items-center gap-1.5"><Bed className="w-3.5 h-3.5" />{home.beds} bd</span>
+          <span className="flex items-center gap-1.5"><Bath className="w-3.5 h-3.5" />{home.baths} ba</span>
+          <span className="flex items-center gap-1.5"><Square className="w-3.5 h-3.5" />{home.sqft} sqft</span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
 export default function FeaturedHomes() {
   return (
-    <section className="bg-slate-950 py-16 sm:py-20 md:py-28 lg:py-32">
+    <section className="bg-slate-950 py-24 md:py-32 lg:py-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-5 mb-12">
           <div>
-            <p className="text-gold-text font-semibold text-xs uppercase tracking-[0.12em] mb-3">
-              Exceptional listings
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+            <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-3.5 py-1.5 mb-5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+              <span className="text-emerald-400 text-[11px] font-bold tracking-widest uppercase">Exceptional listings</span>
+            </div>
+            <h2 className="text-[32px] md:text-[44px] font-extrabold text-white tracking-tight leading-[1.08]">
               Homes worth dreaming about
             </h2>
-            <p className="mt-3 text-white/45 text-[17px] max-w-xl leading-relaxed">
+            <p className="mt-3 text-white/40 text-[16px] max-w-md leading-relaxed">
               Extraordinary properties. Extraordinary agents. Find yours.
             </p>
           </div>
           <Link
             href="/search"
-            className="shrink-0 inline-flex items-center gap-2 text-white/50 hover:text-gold-text font-medium text-sm transition-colors group"
+            className="shrink-0 inline-flex items-center gap-2 text-white/40 hover:text-gold-text font-medium text-[13px] transition-colors duration-200 group"
           >
             View all listings
-            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform duration-200" />
           </Link>
         </div>
 
         {/* Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3.5 lg:grid-rows-2">
-          {/* Large card — left column spanning 2 rows */}
           <div className="lg:row-span-2">
             <PropertyCard home={FEATURED[0]} tall />
           </div>
-          {/* Two smaller cards on the right */}
           <div className="lg:col-span-2 grid sm:grid-cols-2 gap-3.5">
             <PropertyCard home={FEATURED[1]} />
             <PropertyCard home={FEATURED[2]} />

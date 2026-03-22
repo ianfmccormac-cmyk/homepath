@@ -46,85 +46,103 @@ const agents = [
   },
 ];
 
+const STATS = [
+  { icon: MapPin,        key: "location" as const },
+  { icon: TrendingUp,    key: "sales" as const },
+  { icon: CheckCircle2,  key: "specialty" as const },
+  { icon: Clock,         key: "responseTime" as const },
+];
+
 export default function AgentsSection() {
   return (
-    <section className="bg-background py-16 sm:py-20 md:py-28 lg:py-32">
+    <section className="bg-background py-24 md:py-32 lg:py-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
         {/* Header */}
-        <div className="text-center mb-10 md:mb-16">
-          <p className="text-gold-dark font-semibold text-xs uppercase tracking-[0.12em] mb-3">
-            Vetted agents
-          </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">
+        <div className="text-center mb-16 md:mb-20">
+          <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-3.5 py-1.5 mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            <span className="text-emerald-700 text-[11px] font-bold tracking-widest uppercase">Vetted agents</span>
+          </div>
+          <h2 className="text-[32px] md:text-[44px] font-extrabold text-foreground tracking-tight leading-[1.08] mb-5">
             Work with agents who{" "}
             <span className="text-primary">actually show up</span>
           </h2>
-          <p className="mt-4 text-muted-foreground text-[17px] max-w-xl mx-auto leading-relaxed">
+          <p className="text-muted-foreground text-[17px] max-w-[500px] mx-auto leading-relaxed">
             Every agent on HomePath is vetted, reviewed, and matched to buyers
             based on compatibility — not just availability.
           </p>
         </div>
 
         {/* Agent cards */}
-        <div className="grid md:grid-cols-3 gap-5">
+        <div className="grid md:grid-cols-3 gap-5 lg:gap-6">
           {agents.map((agent) => (
             <div
               key={agent.name}
-              className="bg-card rounded-2xl ring-1 ring-black/[0.07] overflow-hidden hover:shadow-[0_16px_48px_rgba(0,0,0,0.12)] transition-all duration-500 group hover:-translate-y-1"
+              className="bg-card rounded-2xl ring-1 ring-black/[0.06] overflow-hidden hover:shadow-[0_20px_60px_rgba(0,0,0,0.13)] hover:-translate-y-1 transition-all duration-300 group flex flex-col"
             >
-              {/* Photo header */}
-              <div className="relative h-64 overflow-hidden">
+              {/* Photo */}
+              <div className="relative h-60 overflow-hidden shrink-0">
                 <img
                   src={agent.photo}
                   alt={agent.name}
-                  className="w-full h-full object-cover object-top transition-transform duration-700 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:scale-[1.04]"
+                  className="w-full h-full object-cover object-top transition-transform duration-700 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:scale-[1.05]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                <span className={`absolute top-4 right-4 ${agent.badgeColor} text-white text-[11px] font-bold px-3 py-1.5 rounded-full flex items-center gap-1 shadow-lg tracking-wide`}>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
+
+                {/* Badge */}
+                <span className={`absolute top-3.5 right-3.5 ${agent.badgeColor} text-white text-[11px] font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-lg tracking-wide`}>
                   <Award className="w-3 h-3" />
                   {agent.badge}
                 </span>
+
+                {/* Name + rating overlay */}
                 <div className="absolute bottom-4 left-4 right-4">
-                  <p className="text-white font-bold text-[18px] leading-tight">{agent.name}</p>
-                  <div className="flex items-center gap-1.5 mt-1">
-                    <div className="flex">
+                  <p className="text-white font-bold text-[18px] leading-tight tracking-tight">{agent.name}</p>
+                  <div className="flex items-center gap-1.5 mt-1.5">
+                    <div className="flex gap-0.5">
                       {[...Array(5)].map((_, i) => (
-                        <Star key={i} className={`w-3 h-3 ${i < Math.floor(agent.rating) ? "fill-amber-400 text-amber-400" : "fill-white/20 text-white/20"}`} />
+                        <Star
+                          key={i}
+                          className={`w-3 h-3 ${i < Math.floor(agent.rating) ? "fill-amber-400 text-amber-400" : "fill-white/20 text-white/20"}`}
+                        />
                       ))}
                     </div>
                     <span className="text-white/90 text-[13px] font-semibold">{agent.rating}</span>
-                    <span className="text-white/45 text-xs">({agent.reviews})</span>
+                    <span className="text-white/40 text-xs">({agent.reviews} reviews)</span>
                   </div>
                 </div>
               </div>
 
-              {/* Card body */}
-              <div className="p-5 flex flex-col gap-4">
+              {/* Body */}
+              <div className="p-6 flex flex-col gap-5 flex-1">
+                {/* Stat list */}
                 <div className="flex flex-col gap-2.5">
-                  <div className="flex items-center gap-2 text-[13px] text-muted-foreground">
+                  <div className="flex items-center gap-2.5 text-[13px] text-muted-foreground">
                     <MapPin className="w-3.5 h-3.5 shrink-0 text-gold" />
                     {agent.location}
                   </div>
-                  <div className="flex items-center gap-2 text-[13px] text-muted-foreground">
+                  <div className="flex items-center gap-2.5 text-[13px] text-muted-foreground">
                     <TrendingUp className="w-3.5 h-3.5 shrink-0 text-gold" />
-                    {agent.sales} homes sold · {agent.recentSale}
+                    {agent.sales} homes sold &middot; {agent.recentSale}
                   </div>
-                  <div className="flex items-center gap-2 text-[13px] text-muted-foreground">
+                  <div className="flex items-center gap-2.5 text-[13px] text-muted-foreground">
                     <CheckCircle2 className="w-3.5 h-3.5 shrink-0 text-gold" />
                     Specializes in {agent.specialty}
                   </div>
-                  <div className="flex items-center gap-2 text-[13px] text-muted-foreground">
+                  <div className="flex items-center gap-2.5 text-[13px] text-muted-foreground">
                     <Clock className="w-3.5 h-3.5 shrink-0 text-gold" />
                     Usually replies in {agent.responseTime}
                   </div>
                 </div>
 
+                {/* CTA */}
                 <Link
                   href={agent.href}
-                  className="mt-1 inline-flex items-center justify-center gap-2 bg-primary text-white font-semibold text-[13px] py-3 rounded-xl hover:bg-primary/90 transition-all shadow-[0_1px_3px_rgba(0,0,0,0.15)] group/btn"
+                  className="mt-auto inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 active:scale-[0.98] text-primary-foreground font-semibold text-[13px] py-3 rounded-xl transition-all duration-200 shadow-[0_1px_3px_rgba(0,0,0,0.15)] group/btn"
                 >
                   View Profile
-                  <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 transition-transform" />
+                  <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 transition-transform duration-200" />
                 </Link>
               </div>
             </div>
@@ -132,10 +150,10 @@ export default function AgentsSection() {
         </div>
 
         {/* Footer CTA */}
-        <div className="text-center mt-12">
+        <div className="text-center mt-14">
           <Link
             href="/onboarding"
-            className="inline-flex items-center gap-2 text-primary font-semibold text-[15px] hover:gap-3 transition-all group"
+            className="inline-flex items-center gap-2 text-primary font-semibold text-[15px] hover:gap-3 transition-all duration-200 group"
           >
             Get matched with my agent
             <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />

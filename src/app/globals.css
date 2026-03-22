@@ -148,3 +148,34 @@
     letter-spacing: -0.025em;
   }
 }
+/* ── Micro-interactions ───────────────────────────────────────────── */
+
+/* Animated progress bar fill */
+@keyframes progress-fill {
+  from { width: 0%; }
+  to   { width: var(--progress-width, 40%); }
+}
+.animate-progress {
+  animation: progress-fill 1s cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation-delay: 0.4s;
+}
+
+/* Fade-up entrance */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  animation: fade-up 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* Subtle shimmer for skeleton / loading */
+@keyframes shimmer {
+  from { background-position: 200% center; }
+  to   { background-position: -200% center; }
+}
+
+/* Button press — applied via active: in Tailwind */
+button, a[href] {
+  -webkit-tap-highlight-color: transparent;
+}
