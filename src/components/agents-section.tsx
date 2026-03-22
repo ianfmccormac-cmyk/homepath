@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Star, MapPin, TrendingUp, ArrowRight, Award, CheckCircle2, Clock } from "lucide-react";
+import { Star, MapPin, ArrowRight, Award } from "lucide-react";
 
 const agents = [
   {
@@ -13,7 +13,6 @@ const agents = [
     badge: "Best Match",
     badgeColor: "bg-gold",
     href: "/realtors/paloma-aguilar",
-    recentSale: "$485K · Oak St",
     responseTime: "< 1 hr",
   },
   {
@@ -27,7 +26,6 @@ const agents = [
     badge: "Top Rated",
     badgeColor: "bg-amber-500",
     href: "/realtors/marcus-rivera",
-    recentSale: "$672K · Summit Rd",
     responseTime: "< 2 hrs",
   },
   {
@@ -41,16 +39,8 @@ const agents = [
     badge: "Top Closer",
     badgeColor: "bg-violet-500",
     href: "/realtors/priya-kapoor",
-    recentSale: "$4.5M · Beachfront",
     responseTime: "< 30 min",
   },
-];
-
-const STATS = [
-  { icon: MapPin,        key: "location" as const },
-  { icon: TrendingUp,    key: "sales" as const },
-  { icon: CheckCircle2,  key: "specialty" as const },
-  { icon: Clock,         key: "responseTime" as const },
 ];
 
 export default function AgentsSection() {
@@ -59,18 +49,16 @@ export default function AgentsSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
-        <div className="text-center mb-16 md:mb-20">
-          <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-3.5 py-1.5 mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-            <span className="text-emerald-700 text-[11px] font-bold tracking-widest uppercase">Vetted agents</span>
-          </div>
-          <h2 className="text-[32px] md:text-[44px] font-extrabold text-foreground tracking-tight leading-[1.08] mb-5">
-            Work with agents who{" "}
-            <span className="text-primary">actually show up</span>
+        <div className="max-w-xl mb-16 md:mb-20">
+          <p className="text-gold-dark text-[12px] font-bold uppercase tracking-[0.14em] mb-4">
+            Vetted agents
+          </p>
+          <h2 className="text-[32px] md:text-[44px] font-extrabold text-foreground tracking-tight leading-[1.06] mb-5">
+            Agents who actually show up
           </h2>
-          <p className="text-muted-foreground text-[17px] max-w-[500px] mx-auto leading-relaxed">
-            Every agent on HomePath is vetted, reviewed, and matched to buyers
-            based on compatibility — not just availability.
+          <p className="text-muted-foreground text-[17px] leading-relaxed">
+            Every agent is vetted, reviewed, and matched to you based on
+            compatibility — not just who&apos;s available.
           </p>
         </div>
 
@@ -79,67 +67,78 @@ export default function AgentsSection() {
           {agents.map((agent) => (
             <div
               key={agent.name}
-              className="bg-card rounded-2xl ring-1 ring-black/[0.06] overflow-hidden hover:shadow-[0_20px_60px_rgba(0,0,0,0.13)] hover:-translate-y-1 transition-all duration-300 group flex flex-col"
+              className="bg-card rounded-2xl ring-1 ring-black/[0.06] overflow-hidden hover:shadow-[0_20px_60px_rgba(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-300 group flex flex-col"
             >
               {/* Photo */}
-              <div className="relative h-60 overflow-hidden shrink-0">
+              <div className="relative h-56 overflow-hidden shrink-0">
                 <img
                   src={agent.photo}
                   alt={agent.name}
                   className="w-full h-full object-cover object-top transition-transform duration-700 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:scale-[1.05]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/5 to-transparent" />
 
                 {/* Badge */}
-                <span className={`absolute top-3.5 right-3.5 ${agent.badgeColor} text-white text-[11px] font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-lg tracking-wide`}>
-                  <Award className="w-3 h-3" />
+                <span className={`absolute top-3.5 right-3.5 ${agent.badgeColor} text-white text-[10px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1 shadow-lg tracking-wide`}>
+                  <Award className="w-2.5 h-2.5" />
                   {agent.badge}
                 </span>
 
-                {/* Name + rating overlay */}
+                {/* Name + rating */}
                 <div className="absolute bottom-4 left-4 right-4">
-                  <p className="text-white font-bold text-[18px] leading-tight tracking-tight">{agent.name}</p>
-                  <div className="flex items-center gap-1.5 mt-1.5">
+                  <p className="text-white font-bold text-[17px] leading-tight tracking-tight">{agent.name}</p>
+                  <div className="flex items-center gap-1.5 mt-1">
                     <div className="flex gap-0.5">
                       {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`w-3 h-3 ${i < Math.floor(agent.rating) ? "fill-amber-400 text-amber-400" : "fill-white/20 text-white/20"}`}
-                        />
+                        <Star key={i} className={`w-3 h-3 ${i < Math.floor(agent.rating) ? "fill-amber-400 text-amber-400" : "fill-white/20 text-white/20"}`} />
                       ))}
                     </div>
-                    <span className="text-white/90 text-[13px] font-semibold">{agent.rating}</span>
-                    <span className="text-white/40 text-xs">({agent.reviews} reviews)</span>
+                    <span className="text-white/85 text-[12px] font-semibold">{agent.rating}</span>
+                    <span className="text-white/40 text-[11px]">({agent.reviews})</span>
                   </div>
                 </div>
               </div>
 
-              {/* Body */}
-              <div className="p-6 flex flex-col gap-5 flex-1">
-                {/* Stat list */}
-                <div className="flex flex-col gap-2.5">
-                  <div className="flex items-center gap-2.5 text-[13px] text-muted-foreground">
+              {/* Body — clean, minimal */}
+              <div className="p-5 flex flex-col gap-4 flex-1">
+                {/* Key facts */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-1.5 text-muted-foreground text-[13px]">
                     <MapPin className="w-3.5 h-3.5 shrink-0 text-gold" />
                     {agent.location}
                   </div>
-                  <div className="flex items-center gap-2.5 text-[13px] text-muted-foreground">
-                    <TrendingUp className="w-3.5 h-3.5 shrink-0 text-gold" />
-                    {agent.sales} homes sold &middot; {agent.recentSale}
+                  <span className="text-[11px] font-medium text-muted-foreground/70 bg-muted rounded-full px-2.5 py-1">
+                    Replies {agent.responseTime}
+                  </span>
+                </div>
+
+                {/* Stats */}
+                <div className="flex items-center gap-3 py-3.5 border-y border-border">
+                  <div className="flex-1 text-center">
+                    <p className="text-foreground font-bold text-[20px] tracking-tight">{agent.sales}</p>
+                    <p className="text-muted-foreground text-[11px] mt-0.5">Homes sold</p>
                   </div>
-                  <div className="flex items-center gap-2.5 text-[13px] text-muted-foreground">
-                    <CheckCircle2 className="w-3.5 h-3.5 shrink-0 text-gold" />
-                    Specializes in {agent.specialty}
+                  <div className="w-px h-8 bg-border" />
+                  <div className="flex-1 text-center">
+                    <p className="text-foreground font-bold text-[20px] tracking-tight">{agent.rating}</p>
+                    <p className="text-muted-foreground text-[11px] mt-0.5">Rating</p>
                   </div>
-                  <div className="flex items-center gap-2.5 text-[13px] text-muted-foreground">
-                    <Clock className="w-3.5 h-3.5 shrink-0 text-gold" />
-                    Usually replies in {agent.responseTime}
+                  <div className="w-px h-8 bg-border" />
+                  <div className="flex-1 text-center">
+                    <p className="text-foreground font-bold text-[20px] tracking-tight">{agent.reviews}</p>
+                    <p className="text-muted-foreground text-[11px] mt-0.5">Reviews</p>
                   </div>
                 </div>
+
+                {/* Specialty tag */}
+                <p className="text-muted-foreground text-[13px]">
+                  Specializes in <span className="text-foreground font-medium">{agent.specialty}</span>
+                </p>
 
                 {/* CTA */}
                 <Link
                   href={agent.href}
-                  className="mt-auto inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 active:scale-[0.98] text-primary-foreground font-semibold text-[13px] py-3 rounded-xl transition-all duration-200 shadow-[0_1px_3px_rgba(0,0,0,0.15)] group/btn"
+                  className="mt-auto inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 active:scale-[0.98] text-primary-foreground font-semibold text-[13px] py-3 rounded-xl transition-all duration-200 group/btn"
                 >
                   View Profile
                   <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 transition-transform duration-200" />
@@ -150,7 +149,7 @@ export default function AgentsSection() {
         </div>
 
         {/* Footer CTA */}
-        <div className="text-center mt-14">
+        <div className="mt-14">
           <Link
             href="/onboarding"
             className="inline-flex items-center gap-2 text-primary font-semibold text-[15px] hover:gap-3 transition-all duration-200 group"
